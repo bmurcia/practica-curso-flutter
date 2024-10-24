@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_equipo4_q4_24/ui/pages/segunda_pagina.dart';
 
 class FormularioPagina extends StatefulWidget {
   const FormularioPagina({super.key});
@@ -41,15 +42,22 @@ class FormularioPaginaState extends State<FormularioPagina>{
     return Container(
       padding: const EdgeInsets.all(8),
       child: Form(
+        key: _formkey,
         child: ListView(
           children: [
-            TextField(
+            TextFormField(
               controller: _controller,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Ej. Bryan',
                 label: Text("Nombre Completo")  
               ),
+              validator: (value){
+                if (value==null || value.isEmpty || value ==''){
+                  return "El campo nombre es obligatorio";
+                }
+                return null;
+              },
             ),
             const SizedBox(height: 10,),
             TextFormField(
@@ -61,8 +69,9 @@ class FormularioPaginaState extends State<FormularioPagina>{
               ),
               validator: (value){
                 if( value==null || value.isEmpty || value==''){
-                  return 'El valor es obligatorio';
+                  return 'El campo edad es obligatorio';
                 }
+                return null;
               },
             ),
             ListTile(
@@ -129,8 +138,24 @@ class FormularioPaginaState extends State<FormularioPagina>{
             Row(
               children: [
                 TextButton(
-                  child: const Text("Primero"),
-                  onPressed: () {},
+                  child: const Text("Validar"),
+                  onPressed: () {
+                    if (_formkey.currentState!.validate()){
+                      if (carrera == '') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Debes seleccionar una carrera") 
+                          )
+                        );
+                      }else{
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Formulario validado correctamente")
+                          )    
+                        );
+                      }
+                    }
+                  },
                 ),
                 const SizedBox(width: 8,),
                 OutlinedButton(
@@ -140,7 +165,14 @@ class FormularioPaginaState extends State<FormularioPagina>{
                 const SizedBox(width: 8,),
                 ElevatedButton(
                   child: const Text("Tercero"),
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushNamed(context, 'segunda_pagina');
+                    //Navigator.push(context, 
+                      //MaterialPageRoute(
+                        //builder: (context) => const SegundaPagina()
+                      //)
+                    //);
+                  },
                 ),
 
                 const SizedBox(width: 8,),
@@ -148,7 +180,7 @@ class FormularioPaginaState extends State<FormularioPagina>{
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: Colors.green[100],
                       borderRadius: BorderRadius.circular(4),
 
                     ),

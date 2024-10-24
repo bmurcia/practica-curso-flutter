@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_equipo4_q4_24/widgets/formulario_pagina.dart';
+import 'package:flutter_app_equipo4_q4_24/ui/pages/formulario_pagina.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(title),
       ),
-      body:  Center(
+      body:const Center(
         child: FormularioPagina(),
       ),
       floatingActionButton: FloatingActionButton(
